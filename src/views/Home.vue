@@ -18,11 +18,10 @@
 
     <div id="dplayer1"></div>
 
-<br>
-<br>
+    <br />
+    <br />
     <el-row class="tv-comment">
-        <comment-editor @submit="submitComment"></comment-editor>
-
+      <comment-editor @submit="submitComment"></comment-editor>
     </el-row>
   </el-row>
 </template>
@@ -37,37 +36,66 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import DPlayer from "dplayer";
-import Vue from 'vue'
-import CommentEditor from 'comment-message-editor'
+import Vue from "vue";
+import CommentEditor from "comment-message-editor";
 
-Vue.component(CommentEditor.name, CommentEditor)
+Vue.component(CommentEditor.name, CommentEditor);
 
 export default {
   name: "Home",
   components: {},
-  data(){
-    return{
-      textarea:"",
-      input:"",
-    }
+  data() {
+    return {
+      textarea: "",
+      input: "",
+      totalPage: 1,
+      bangumiId: 1,
+      bangumi: {},
+    };
   },
   mounted() {
-    const dp = new DPlayer({
-      container: document.getElementById("dplayer1"),
-      
-      video: {
-        url: require("/12.mp4"),
-        
-      },
-    });
-    console.log(dp);
+    // this.getData();
+    // var that = this;
+    // console.log(that.bangumi.videoUrl);
+    // const dp = new DPlayer({
+    //   container: document.getElementById("dplayer1"),
+    //   video: {
+    //     url: require(this.bangumi),
+    //   },
+    // });
+    // console.log(dp);
+    // console.log(this);
   },
 
-  methods:{
-    submitComment(comment){
+  created() {
+    // this.getData();
+
+    this.getData();
+    // var that = this;
+    // console.log(that.bangumi.videoUrl);
+  },
+
+  methods: {
+    submitComment(comment) {
       console.log(comment);
-    }
-  }
+    },
+    getData() {
+      // console.log(this.bangumiId);
+      this.$api.get("bangumi/" + this.bangumiId, null, (r) => {
+        this.bangumi = r.response;
+        console.log(this.bangumi);
+        var that = this;
+        console.log(that.bangumi.videoUrl);
+        const dp = new DPlayer({
+          container: document.getElementById("dplayer1"),
+          video: {
+            url: require(`../assets/${that.bangumi.videoUrl}`),
+          },
+        });
+        console.log(dp);
+      });
+    },
+  },
 };
 </script>
 

@@ -1,9 +1,10 @@
 import store from "../store";
-import applicationUserManager from "../Auth/applicationusermanager";
+import router from '../router';
+// import applicationUserManager from "../Auth/applicationusermanager";
 
 // 配置API接口地址
 // var root1 = "http://localhost:58427/api";//测试本地，用CORS跨域
-var root = "/api/";//用proxy实现本地代理跨域（生产环境使用的是nginx）
+var root = "http://localhost:8081/api/";//用proxy实现本地代理跨域（生产环境使用的是nginx）
 // 引用axios
 var axios = require("axios");
 // 自定义判断元素类型JS
@@ -57,11 +58,11 @@ axios.interceptors.response.use(
           // 返回 401 清除token信息并跳转到登录页面
             store.commit("saveToken", "");
             window.localStorage.removeItem("USER_NAME");
-            applicationUserManager.login();
-          //   router.replace({
-          //   path: "/login",
-          //   query: { redirect: router.currentRoute.fullPath }
-          // });
+            // applicationUserManager.login();
+            router.replace({
+            path: "/login",
+            query: { redirect: router.currentRoute.fullPath }
+          });
       }
     }
     return Promise.reject(error.response.data); // 返回接口返回的错误信息

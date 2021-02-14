@@ -11,7 +11,7 @@
         </el-row>
         <el-row class="header-tv">
           <el-col :span=4 :offset="3">
-            <el-image :src="logoUrl" :fit="contain">
+            <el-image :src="logoUrl">
 
             </el-image>
           </el-col>
