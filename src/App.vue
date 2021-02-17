@@ -21,7 +21,6 @@
           </el-col>
         </el-row>
         <br>
-        <br>
         <el-row class="nav">
           <el-col>
             <router-link to="/">
@@ -36,6 +35,10 @@
 
         <br>
         <router-view />
+        <br>
+        <br>
+        <br>
+
         <el-row class="footer">
           power by .net5.0
         </el-row>
@@ -60,7 +63,7 @@
 
 .wrapper {
   background-color: white;
-  padding-top: 80px;
+  padding-top: 30px;
 }
 
 /* #nav {

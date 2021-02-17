@@ -4,7 +4,7 @@ import router from '../router';
 
 // 配置API接口地址
 // var root1 = "http://localhost:58427/api";//测试本地，用CORS跨域
-var root = "http://localhost:8081/api/";//用proxy实现本地代理跨域（生产环境使用的是nginx）
+var root = "http://localhost:9081/api/";//用proxy实现本地代理跨域（生产环境使用的是nginx）
 // 引用axios
 var axios = require("axios");
 // 自定义判断元素类型JS
