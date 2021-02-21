@@ -1,6 +1,32 @@
+
+<script lang="ts">
+
+import { Component, Vue } from 'vue-property-decorator';
+
+import LivingIndex from '@/views/live/index.vue';
+
+@Component({
+  components: {
+    LivingIndex,
+  },
+})
+export default class App extends Vue{
+  data(){
+    return{
+      fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
+      // logoUrl:require('./assets/logo.jpg')
+    }
+  }
+  
+}
+</script>
+
+
+
 <template>
   <el-row id="app">
-    <el-col :span="10" :offset="7">
+    <living-index></living-index>
+    <!-- <el-col :span="10" :offset="7">
       <el-row class="wrapper">
         <el-row class="header-logo">
           <el-col :span="5" :offset="1">
@@ -43,7 +69,7 @@
           power by .net5.0
         </el-row>
       </el-row>
-    </el-col>
+    </el-col> -->
   </el-row>
 </template>
 
@@ -79,14 +105,3 @@
   color: #42b983;
 } */
 </style>
-
-<script>
-export default {
-  data(){
-    return{
-      fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-      logoUrl:require('./assets/logo.jpg')
-    }
-  }
-}
-</script>
