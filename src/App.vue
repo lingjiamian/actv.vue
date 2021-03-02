@@ -1,46 +1,36 @@
 
 <script>
-
-
-
-
 export default {
-  data(){
-    return{
-      fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-      logoUrl:require('./assets/logo.jpg')
-    }
-  }
-  
-}
+  data() {
+    return {
+      fits: ["fill", "contain", "cover", "none", "scale-down"],
+      logoUrl: require("./assets/logo.jpg"),
+    };
+  },
+};
 </script>
 
 
 
 <template>
   <el-row id="app">
-    <living-index></living-index>
     <el-col :span="10" :offset="7">
       <el-row class="wrapper">
         <el-row class="header-logo">
           <el-col :span="5" :offset="1">
-            <div class="logo">
-             
-            </div>
+            <div class="logo"></div>
           </el-col>
         </el-row>
         <el-row class="header-tv">
-          <el-col :span=4 :offset="3">
-            <el-image :src="logoUrl">
-
-            </el-image>
+          <el-col :span="4" :offset="3">
+            <el-image :src="logoUrl"> </el-image>
           </el-col>
           <el-col :span="4" :offset="8">
             <h1>看电视</h1>
             <h4>just for fun</h4>
           </el-col>
         </el-row>
-        <br>
+        <br />
         <el-row class="nav">
           <el-col>
             <router-link to="/">
@@ -50,18 +40,19 @@ export default {
             <router-link to="/about">
               <el-link>关于 </el-link>
             </router-link>
+            |
+            <router-link to="/Login">
+              <el-link>登录</el-link>
+            </router-link>
           </el-col>
         </el-row>
 
-        <br>
         <router-view />
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
 
-        <el-row class="footer">
-          power by .net5.0
-        </el-row>
+        <el-row class="footer"> power by dotnet5 </el-row>
       </el-row>
     </el-col>
   </el-row>

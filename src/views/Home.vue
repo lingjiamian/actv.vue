@@ -17,14 +17,18 @@
     <br />
 
     <div id="dplayer1">
-      <div id="my-comment-stage" class="container"></div>
-
+      <vue-baberrage
+        :isShow="barrageIsShow"
+        :barrageList="barrageList"
+        :isLoop="barrageIsLoop"
+      >
+      </vue-baberrage>
     </div>
 
     <br />
-    <el-row class="tv-comment">
+    <!-- <el-row class="tv-comment">
       <comment-editor @submit="submitComment"></comment-editor>
-    </el-row>
+    </el-row> -->
   </el-row>
 </template>
 
@@ -35,29 +39,31 @@
 }
 </style>
 
-
-
-
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import DPlayer from "dplayer";
 import Vue from "vue";
 import CommentEditor from "comment-message-editor";
+import { vueBaberrage } from "vue-baberrage";
+import { MESSAGE_TYPE } from "vue-baberrage";
 
+Vue.use(vueBaberrage);
 Vue.component(CommentEditor.name, CommentEditor);
-
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      textarea: "",
-      input: "",
       totalPage: 1,
       bangumiId: 1,
       bangumi: {},
+      currentId: 0,
+      msg: "今晚打老虎",
+      barrageIsShow: true,
+      barrageIsLoop: false,
+      barrageList: [],
     };
   },
   mounted() {
@@ -78,14 +84,23 @@ export default {
     // this.getData();
 
     this.getData();
+    this.addBarrageList();
     // var that = this;
     // console.log(that.bangumi.videoUrl);
-    
   },
 
   methods: {
     submitComment(comment) {
       console.log(comment);
+    },
+    addBarrageList() {
+      this.barrageList.push({
+        id: this.currentId++,
+        msg: this.msg,
+        time: 5,
+        type: MESSAGE_TYPE.NORMAL,
+      });
+      console.log(this.barrageList);
     },
     getData() {
       // console.log(this.bangumiId);
@@ -96,12 +111,29 @@ export default {
         console.log(that.bangumi.videoUrl);
         const dp = new DPlayer({
           container: document.getElementById("dplayer1"),
+          lang:"zh-cn",
           video: {
             url: require(`../assets/${that.bangumi.videoUrl}`),
           },
+          danmaku: {
+            id: this.bangumiId,
+            api: "http://localhost:9081/api/Danmaku/",
+            maximum: 1000,
+            user: "DIYgod",
+            bottom: "15%",
+            unlimited: true,
+          },
         });
+        // dp.danmaku.send(
+        //   {
+        //     text: "dplayer is amazing",
+        //     color: '#ffffff'
+        //   },
+        //   function () {
+        //     console.log("success");
+        //   }
+        // );
         console.log(dp);
-        
       });
     },
   },
