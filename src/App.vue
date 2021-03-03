@@ -1,16 +1,4 @@
 
-<script>
-export default {
-  data() {
-    return {
-      fits: ["fill", "contain", "cover", "none", "scale-down"],
-      logoUrl: require("./assets/logo.jpg"),
-    };
-  },
-};
-</script>
-
-
 
 <template>
   <el-row id="app">
@@ -41,9 +29,14 @@ export default {
               <el-link>关于 </el-link>
             </router-link>
             |
-            <router-link to="/Login">
-              <el-link>登录</el-link>
-            </router-link>
+            <template v-if="userName == null">
+              <router-link to="/Login">
+                <el-link>登录</el-link>
+              </router-link>
+            </template>
+            <template v-else>
+              <span @click="logOut">{{userName}}，注销</span>
+            </template>
           </el-col>
         </el-row>
 
@@ -90,3 +83,39 @@ export default {
   color: #42b983;
 } */
 </style>
+
+
+<script>
+
+export default {
+  data() {
+    return {
+      fits: ["fill", "contain", "cover", "none", "scale-down"],
+      logoUrl: require("./assets/logo.jpg"),
+      userName : null
+    };
+  },
+  created(){
+    // this.userName = this
+    // window.localStorage.removeItem("userName");
+    this.userName = window.localStorage.getItem("userName");
+    console.log(this.userName);
+  },
+  // updated(){
+  //   this.userName = window.localStorage.getItem("userName");
+  //   console.log(this.userName);
+
+  // },
+  mounted(){
+    this.userName = window.localStorage.getItem("userName");
+
+  },
+  methods:{
+    async logOut(){
+      this.$store.commit("removeUserName", '');
+      this.$store.commit("removeToken", '');
+    }
+  }
+};
+</script>
+
